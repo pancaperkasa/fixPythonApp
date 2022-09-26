@@ -1,4 +1,3 @@
-
 pipeline{
     agent any
     stages{
@@ -25,16 +24,7 @@ pipeline{
                 sh '''
                 cd app/
                 touch /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportfilesystem.html
-                trivy config . --format template --template "@deploy/html.tpl" -o /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportfilesystem.html 
-                '''
-            }
-        }
-
-        stage("Vulnerability and Secret Scanner"){
-            steps{
-                sh '''
-                cd deploy/
-                trivy image --format template --template "@html.tpl" -o /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportimagesecret.html gosip-app:local
+                trivy fs . --format template --template "@deploy/html.tpl" -o /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportfilesystem.html 
                 '''
             }
         }
@@ -42,13 +32,23 @@ pipeline{
         stage("Docker Compose and Rootfs Scanner"){
             steps{
                 sh '''
-                cd deploy/
-                touch /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportrootfs.html
+                cd app/deploy/
                 docker-compose up -d
+                touch /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportrootfs.html
+                mv /var/lib/docker/volumes/deploy_rootfsresult/_data/reportrootfs.html /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportrootfs.html
                 '''
             }
         }
         
+        stage("Vulnerability and Secret Scanner"){
+            steps{
+                sh '''
+                cd app/deploy
+                touch /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportimagesecret.html
+                trivy image --format template --template "@deploy/html.tpl" -o /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportimagesecret.html gosip-app:local
+                '''
+            }
+        }
       
     }
 }
