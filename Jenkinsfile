@@ -14,7 +14,7 @@ pipeline{
                 cd app/
                 mkdir /var/www/html/trivy/pipeline${BUILD_NUMBER}/
                 touch /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportconfig.html
-                trivy config . --format template --template "@deploy/html.tpl" -o /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportconfig.html 
+                trivy config . --format template --template "@deploy/html.tpl" -o /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportconfig.html --severity HIGH,CRITICAL
                 '''
             }
         }
@@ -24,7 +24,7 @@ pipeline{
                 sh '''
                 cd app/
                 touch /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportfilesystem.html
-                trivy fs . --format template --template "@deploy/html.tpl" -o /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportfilesystem.html 
+                trivy fs . --format template --template "@deploy/html.tpl" -o /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportfilesystem.html --severity HIGH,CRITICAL
                 '''
             }
         }
@@ -34,8 +34,6 @@ pipeline{
                 sh '''
                 cd app/deploy/
                 docker-compose up -d
-                touch /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportrootfs.html
-                mv /var/lib/docker/volumes/deploy_rootfsresult/_data/reportrootfs.html /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportrootfs.html
                 '''
             }
         }
@@ -45,7 +43,7 @@ pipeline{
                 sh '''
                 cd app/deploy
                 touch /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportimagesecret.html
-                trivy image --format template --template "@deploy/html.tpl" -o /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportimagesecret.html gosip-app:local
+                trivy image --format template --template "@deploy/html.tpl" -o /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportimagesecret.html --severity HIGH,CRITICAL gosip-app:local
                 '''
             }
         }
