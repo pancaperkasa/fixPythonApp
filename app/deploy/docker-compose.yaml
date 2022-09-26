@@ -42,7 +42,7 @@ services:
 
 volumes:
   storage-a7-database:
-  rootfs-result:
+  rootfsresult:
 
 networks:
   a7_net:
