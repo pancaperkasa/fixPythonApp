@@ -14,7 +14,7 @@ RUN mkdir /trivy
 WORKDIR /trivy
 COPY deploy/html.tpl /trivy
 RUN curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
-RUN trivy --format template --template "@html.tpl" -o /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportrootfs.html rootfs /
+RUN trivy --format template --template "@html.tpl" -o reportrootfs.html rootfs /
 #Trivy
 
 
