@@ -42,8 +42,11 @@ pipeline{
             steps{
                 sh '''
                 cd app/deploy
-                touch /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportimagesecret.html
-                trivy image --format template --template "@deploy/html.tpl" -o /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportimagesecret.html --severity HIGH,CRITICAL gosip-app:local
+                touch /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportimagesecretpython.html
+                trivy image --format template --template "@html.tpl" -o /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportimagesecretpython.html --severity HIGH,CRITICAL python:3.6
+                
+                touch /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportimagesecretdb.html
+                trivy image --format template --template "@html.tpl" -o /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportimagesecretdb.html --severity HIGH,CRITICAL mariadb:10.6.3
                 '''
             }
         }
