@@ -10,6 +10,7 @@ services:
       - "10007:10007"
     volumes:
       - "../src/:/app"
+      - rootfsresult:/trivy
     environment:
       SECRET_KEY: secretkey
       MYSQL_ENDPOINT: mysqldb-a7
@@ -41,6 +42,7 @@ services:
 
 volumes:
   storage-a7-database:
+  rootfsresult:
 
 networks:
   a7_net:

@@ -29,7 +29,7 @@ pipeline{
             }
         }
 
-        stage("Docker Compose and Rootfs Scanner"){
+        stage("Docker Compose and Rootfs"){
             steps{
                 sh '''
                 cd app/deploy/
