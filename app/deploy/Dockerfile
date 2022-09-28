@@ -17,10 +17,8 @@ RUN curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/
 RUN trivy --format template --template "@html.tpl" -o reportrootfs.html --severity HIGH,CRITICAL rootfs /
 #Trivy
 
-RUN cd ..
-RUN cd ..
 WORKDIR /app
 
 
 EXPOSE 10007
-CMD ["python", "routes.py"]
+CMD ["python", "/src/routes.py"]

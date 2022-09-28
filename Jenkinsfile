@@ -19,15 +19,15 @@ pipeline{
             }
         }
 
-        stage("Filesystem Scanner"){
-            steps{
-                sh '''
-                cd app/
-                touch /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportfilesystem.html
-                trivy fs . --format template --template "@deploy/html.tpl" -o /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportfilesystem.html --severity HIGH,CRITICAL
-                '''
-            }
-        }
+        // stage("Filesystem Scanner"){
+        //     steps{
+        //         sh '''
+        //         cd app/
+        //         touch /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportfilesystem.html
+        //         trivy fs . --format template --template "@deploy/html.tpl" -o /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportfilesystem.html --severity HIGH,CRITICAL
+        //         '''
+        //     }
+        // }
 
         stage("Docker Compose and Rootfs"){
             steps{
