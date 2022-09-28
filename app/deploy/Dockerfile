@@ -18,6 +18,8 @@ RUN trivy --format template --template "@html.tpl" -o reportrootfs.html --severi
 #Trivy
 
 RUN cd ..
+RUN cd ..
+WORKDIR /app
 
 
 EXPOSE 10007
