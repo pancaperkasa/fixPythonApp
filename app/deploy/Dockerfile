@@ -5,8 +5,8 @@ ENV PYTHONUNBUFFERED 1
 
 RUN mkdir /app
 WORKDIR /app
-COPY src/requirements.txt /app/requirements.txt
+COPY app/src/requirements.txt /app/requirements.txt
 RUN pip install -r requirements.txt
-COPY src/ /app
+COPY app/src/ /app
 EXPOSE 10007
 CMD ["python", "routes.py"]
