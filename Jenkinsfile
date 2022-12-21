@@ -16,7 +16,7 @@ pipeline {
         stage('Create Image') {
             steps {
                 sh """
-                docker image rm gossip-app/devsecops:v${BUILD_NUMBER} 
+                docker image rm gossip-app/devsecops:v${BUILD_NUMBER} || echo "No existing image found"
                 docker build --no-cache -t gossip-app/devsecops:v${BUILD_NUMBER} -f deploy/Dockerfile .
                 """
             }
