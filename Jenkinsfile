@@ -7,7 +7,7 @@ pipeline {
                 sh """
                 mkdir /var/www/html/trivy/pipeline${BUILD_NUMBER}/
                 touch /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportconfig.html
-                trivy config . --ignore-unfixed --format template --template "@html.tpl" -o /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportconfig.html --exit-code 0 --severity HIGH,CRITICAL
+                trivy config . --format template --template "@html.tpl" -o /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportconfig.html --exit-code 0 --ignore-unfixed --severity HIGH,CRITICAL
                 """
             }
         }
@@ -23,7 +23,7 @@ pipeline {
             steps {
                 sh """
                 touch /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportimagesecretpython.html
-                trivy image --ignore-unfixed --format template --template "@html.tpl" -o /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportimagesecretpython.html --exit-code 0 --severity HIGH,CRITICAL gossip-app/devsecops:v${BUILD_NUMBER}
+                trivy image --format template --template "@html.tpl" -o /var/www/html/trivy/pipeline${BUILD_NUMBER}/reportimagesecretpython.html --exit-code 0 --ignore-unfixed --severity HIGH,CRITICAL gossip-app/devsecops:v${BUILD_NUMBER}
                 """
             }
         }
